@@ -1,0 +1,16 @@
+<div class="container">
+    <header>
+        <h2>header in angular17 woo</h2>
+    </header>
+        @if (tasks()) {
+            <h3>Pending tasks</h3>
+            <button (click)="addTask()">Add Task</button>
+            <button (click)="deleteAll()">Remove all</button>
+            @for (task of tasks(); track $index) {
+                <app-todo></app-todo>
+            } @empty {
+                <p>No pending tasks. Good job!</p>
+            }
+        } 
+    <footer>footer in angular17 woo</footer>
+</div>
