@@ -1,6 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TodoComponent } from '../todo/todo.component';
+import { TodoService } from '../../services/todo-service.service';
+import { Observable, firstValueFrom, of } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list',
@@ -11,12 +13,21 @@ import { TodoComponent } from '../todo/todo.component';
 })
 
 export class TodoListComponent {
-  tasks = signal<any[]>([])
+  tasks = signal<any>([])
+
+  constructor(private TodoService: TodoService) {}
+
+  ngOnInit() {
+    this.getTodos(); 
+  }
+
+  getTodos = async () => {
+    //Just like that!
+    this.tasks.set(await this.TodoService.getTodos())
+  }
 
   addTask = () => {
-    console.log("la llamada funciona");
     this.tasks().push(1)
-    //this.tasks.update(value => this.tasks())
   }
 
   deleteAll = () => {
